@@ -1,27 +1,32 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
 
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+
+sourceCompatibility = "6"
+targetCompatibility = "6"
 buildscript {
     ext.kotlin_version = '1.2.41'
     repositories {
-        google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0-alpha16'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
     }
 }
-
-allprojects {
-    repositories {
-        google()
-        jcenter()
+repositories {
+    mavenCentral()
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
